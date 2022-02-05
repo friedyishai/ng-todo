@@ -9,6 +9,7 @@ import { TodoService } from 'src/app/services/todo.service';
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit, OnDestroy {
+  currTodo: ITodo;
   todos: ITodo[] = [];
   subscriptions: Subscription = new Subscription();
 
@@ -18,10 +19,19 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.subscriptions.add(this.todoService.getTodos().subscribe(
       data => this.todos = data
     ));
+    this.subscriptions.add(this.todoService.getSelectedTodo().subscribe(
+      todo => this.currTodo = todo
+    ));
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  onTodoClick(todo: ITodo): void {
+    this.currTodo.selected = false;
+    todo.selected = true;
+    this.todoService.setSelectedTodo(todo);
   }
 
 }

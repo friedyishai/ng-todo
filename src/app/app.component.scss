@@ -1,9 +1,14 @@
 .app {
     main {
+        display: flex;
+        gap: 10px;
+        height: calc(100vh - 83.9962px);
         padding: 10px;
-        height: calc(100vh - 63.9962px);
         .list-container {
             width: 25%;
+        }
+        .todo-container {
+            width: 75%;
         }
     }
 }
